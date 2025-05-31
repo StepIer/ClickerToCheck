@@ -13,6 +13,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 private const val PERMISSION_CODE = 110
+var isStarted: Boolean = false
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 serviceIntent = Intent(this@MainActivity,
                     FloatingClickService::class.java)
                 startService(serviceIntent)
-                onBackPressed()
+//                onBackPressed()
             } else {
                 askPermission()
                 shortToast("You need System Alert Window Permission to do this")
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val hasPermission = checkAccess()
         "has access? $hasPermission".logd()
-        if (!hasPermission) {
+        if (!hasPermission && !isStarted) {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M

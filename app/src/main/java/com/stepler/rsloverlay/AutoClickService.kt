@@ -32,6 +32,7 @@ class AutoClickService : AccessibilityService() {
         autoClickService = this
         startActivity(Intent(this, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        isStarted = true
     }
 
     fun click(x: Int, y: Int) {
